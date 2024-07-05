@@ -1,0 +1,246 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+}
+main{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: space-around;
+
+    background-image: url('/assets/images/backgrounds/chessboard.webp');
+    background-size: cover; 
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.5); 
+    background-blend-mode: darken;
+    
+    font-weight: bold;
+    font-family:"Roboto", sans-serif;
+    padding-top: 10px;
+    
+}
+.div2{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* color: #040922; */
+    color: white;
+    padding-top: 60px;
+}
+.div2 h1{
+    font-size: 2.5em;
+}
+.div2 h3{
+    font-size: 2.5em;
+}
+.div2 .maina{
+    text-decoration: none;
+    color: white;
+    background-color:#406689 ;
+    width:max-content ;
+    font-size: 0.8em;
+    padding:15px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 40px;
+    border-radius: 30px;
+    transition: 0.5s;
+
+}
+.div2 .maina:hover{
+    transform: scale(1.05);
+    background-color: white;
+    color:#406689 ;
+    
+}
+
+.div3{
+    width: 30px;
+    height: 30px;
+}
+.div3 img{
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+}
+.div3 img:hover{
+    transform: scale(1.1);
+}
+.div1{
+    color: white;
+}
+section{
+    width: 100%;
+    background-color: #c0c7c5;
+    padding-left: 40px;
+    padding-top: 10px;
+    font-family:"Roboto", sans-serif ;
+}
+.sec0{
+    font-size: 1.3em;
+    padding-top: 30px;
+}
+.sec1{
+    
+    width: 100%;
+    padding: 40px 40px;
+    display: flex;
+    
+}
+.sec1 .sec1div1{
+    width: 40%;
+    display: flex;
+    
+}
+.sec1 .sec1div1 input{
+    width: 60%;
+    padding-left: 10px;
+    height: 40px;
+    border-radius: 20px 0px 0px 20px;
+    border: 0px solid black;
+}
+.sec1 .sec1div1 button{
+    width: 10%;
+    height: 40px;
+    border-radius: 0px 20px 20px 0px;
+    border: 0px solid black;
+    background-color: #406689;
+}
+.sec1 .sec1div2{
+    display: flex;
+    flex-direction: row;
+    
+    width: 20%;
+    height: 40px;
+    
+
+}
+.sec1 .sec1div2 a{
+    color: white;
+    text-decoration: none;
+    background-color: #406689;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px 30px;
+    transition: 0.5s;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.sec1 .sec1div2 a:hover{
+    color: #406689;
+    background-color: white;
+    transform: scale(1.05);
+}
+.sec2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: max-content;
+    gap: 20px;
+}
+.sec2 article{
+    height: 100%;
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    width: 90%;
+    background-color: #d7dede;
+    /* background-color: white; */
+    border-radius: 15px;
+    padding: 10px 20px;
+}
+.sec2 article .sec2div1{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.sec2 article .sec2div1 img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.sec2 article .sec2div2{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 80%;
+    width: 70%;
+    
+    padding-left: 20px;
+}
+.sec2 article .div2 h2{
+    text-align: start;
+}
+.sec2div3{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    row-gap: 5px;
+    
+    padding: 10px 50px;
+}
+.sec2div3 a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: max-content;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sec2div3 a:hover{
+    transform: scale(1.05);
+}
+.roundes{
+    background-color: rgb(60, 191, 130);
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.delete{
+    background-color: rgb(226, 54, 11);
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.players{
+    background-color: #406689;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.request{
+    background-color: #cbc211;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.request span{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(254, 28, 28);
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    /* display: none; */
+}
+.add{
+    background-color: #05bbb2;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.link{
+    background-color: #0c795a;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
