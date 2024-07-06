@@ -17,6 +17,6 @@ class Tournament extends Model
         return $this ->belongsTo(Utilisateur::class);
     }
     public function Players(){
-        return $this ->hasMany(Player::class,'idter');
+        return $this ->hasMany(Player::class,'idter', 'id');
     }
 }

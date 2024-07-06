@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,14 +69,19 @@
             </div>
             <div class="sec2div2">
                 <h2>{{$item->titel}}</h2>
-                <p>{{$item->desc}}</p>
+                <p>{{ str::limit(strip_tags($item->desc), 150) }}</p>
             </div>
             <div class="sec2div3">
                 <a href="#" class="roundes">Round : {{$item->round}}/{{$item->rounds}}</a>
                 <a href="#" class="players"><img src="assets/images/icons/group.svg" alt="group">{{$item->players_count}}/{{$item->maxplayers}}</a>
                 <a href="#" class="request">requsets <span></span></a>
                 <a href="#" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>
-                <a href="#" class="delete"><img src="assets/images/icons/delete.svg" alt="delete">delete</a>
+                <form action="{{route('tournament.destroy',$item->id)}}" method="post" class="delete">  
+                    @csrf
+                    @Method('DELETE')
+                    <button type="submit" ><img src="assets/images/icons/delete.svg" alt="delete"> delete</button>
+                </form>
+                {{-- <a href="#" class="delete"><img src="assets/images/icons/delete.svg" alt="delete">delete</a> --}}
                 <a href="#" class="link"><img src="assets/images/icons/link.svg" alt="link" title="link"></a>
             </div>
         </article>

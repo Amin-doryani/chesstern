@@ -244,3 +244,23 @@ section{
     padding: 3px 10px;
     border-radius: 2px;
 }
+form button{
+    background-color: rgb(226, 54, 11);
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    
+    border-radius: 2px;
+    font-weight: bold;
+
+}
+
+form {
+    transition: 0.5s;
+}
+
+form:hover{
+    transform: scale(1.05);
+}
