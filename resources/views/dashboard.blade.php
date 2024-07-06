@@ -75,8 +75,8 @@
                 <a href="#" class="roundes">Round : {{$item->round}}/{{$item->rounds}}</a>
                 <a href="#" class="players"><img src="assets/images/icons/group.svg" alt="group">{{$item->players_count}}/{{$item->maxplayers}}</a>
                 <a href="#" class="request">requsets <span></span></a>
-                <a href="#" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>
-                <form action="{{route('tournament.destroy',$item->id)}}" method="post" class="delete">  
+                <a href="{{route('addplayer',['id'=>$item->id])}}" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>
+                <form action="{{route ('tournament.destroy',$item->id)}}" method="post" class="delete">  
                     @csrf
                     @Method('DELETE')
                     <button type="submit" ><img src="assets/images/icons/delete.svg" alt="delete"> delete</button>

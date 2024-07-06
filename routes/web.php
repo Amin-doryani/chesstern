@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\http\Controllers\UtilisateurController;
 use App\http\Controllers\TournamentController;
+use App\http\Controllers\PlayerController;
+
 
 
 Route::get('/', function () {
@@ -12,6 +14,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [TournamentController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::resource('tournament', TournamentController::class);
+
+
 
 
 Route::get('/signup', [UtilisateurController::class,"create"])->name("createuser");
@@ -24,5 +28,9 @@ Route::get('/logout', [UtilisateurController::class,"logout"])->name("logout");
 
 Route::get('/add-Tournament',[TournamentController::class,'create'])->name('addtournament')->middleware("auth");
 
+Route::resource('player', PlayerController::class);
+Route::post('/store-player/{idter}',[PlayerController::class,'store'])->name('storePlayer')->middleware('auth');
+
+Route::get('add-player/{id}', [PlayerController::class,'create'])->name('addplayer')->middleware('auth');
 
 

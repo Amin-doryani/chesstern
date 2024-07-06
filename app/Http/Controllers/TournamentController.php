@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tournament;
 use App\Models\Player;
+use App\Models\Requset;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +24,7 @@ class TournamentController extends Controller
                           ->with('players')
                           ->withCount('players')
                           ->get();
+        
         return view('dashboard',["tourn"=>$tourn]);
 
         
@@ -125,7 +128,7 @@ class TournamentController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('players')->where('idter', 11)->delete();
+        DB::table('players')->where('idter', $id)->delete();
         $thetern = Tournament::findOrFail($id);
         $imagePath = $thetern->image;
         
