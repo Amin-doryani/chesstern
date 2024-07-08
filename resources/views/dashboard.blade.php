@@ -74,7 +74,12 @@
             <div class="sec2div3">
                 <a href="#" class="roundes">Round : {{$item->round}}/{{$item->rounds}}</a>
                 <a href="#" class="players"><img src="assets/images/icons/group.svg" alt="group">{{$item->players_count}}/{{$item->maxplayers}}</a>
-                <a href="#" class="request">requsets <span></span></a>
+                @if ($item->requests>0)
+                    <a href="#" class="request">requsets <span></span> ({{{$item->requests}}})</a>
+                @else
+                <a href="#" class="request">requsets</a>
+                @endif
+                
                 <a href="{{route('addplayer',['id'=>$item->id])}}" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>
                 <form action="{{route ('tournament.destroy',$item->id)}}" method="post" class="delete">  
                     @csrf

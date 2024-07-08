@@ -24,7 +24,12 @@ class TournamentController extends Controller
                           ->with('players')
                           ->withCount('players')
                           ->get();
-        
+        foreach ($tourn as $item){
+            $req = DB::table('requsets')
+                ->where('idter', $item->id)
+                ->count();
+            $item->requests = $req; 
+        }
         return view('dashboard',["tourn"=>$tourn]);
 
         
