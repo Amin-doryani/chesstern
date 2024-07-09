@@ -32,5 +32,8 @@ Route::resource('player', PlayerController::class);
 Route::post('/store-player/{idter}',[PlayerController::class,'store'])->name('storePlayer')->middleware('auth');
 
 Route::get('add-player/{id}', [PlayerController::class,'create'])->name('addplayer')->middleware('auth');
+Route::get("/req", function(){
+    return view('utili.tourn.requests');
+});
 
 

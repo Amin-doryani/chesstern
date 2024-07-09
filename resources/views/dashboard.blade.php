@@ -12,21 +12,15 @@
     <title>Dashboard</title>
 </head>
 <body>
+    @include('nav')
     <main class="main">
-        <div class="div1">
-            <h1>chesstern</h1>
-        </div>
+        
         <div class="div2">
             <h1>Manage your chess tournemnts</h1>
             <h3>Swiss chess Tournemtns</h3>
             <a href="#" class="maina">Create New Tournemnets</a>
         </div>
-        <div class="div3">
-            @auth
-            <a href="{{route('logout')}}"><img src="assets/images/icons/logouticon.svg" alt="logout" title="logout" ></a>
-            @endauth
-            
-        </div>
+        
     </main>
     <section class="sec0">
         <h2>Main Page</h2>

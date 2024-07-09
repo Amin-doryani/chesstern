@@ -1,0 +1,108 @@
+body{
+    font-family:"Roboto", sans-serif;
+    
+}
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.nav{
+    width: 100vw;
+    height: 82px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0 0 10;
+    background-color: white;
+    color: black;
+    
+}
+.nav .div1 h1{
+
+        font-size: 2.4em;
+        color: black;
+        font-weight: 800;
+        color: #406689;
+
+}
+.nav .div1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+
+}
+
+.nav .div2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+    
+    padding: 0;
+
+}
+.nav .div2 a{
+    color: black;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: 500;
+    
+}
+.nav .div2 a:hover{
+    color: #406689;
+    border-bottom: 2px solid #406689 ;
+
+}
+.nav .div2 .logout:hover{
+    border-bottom: 0px solid black;
+}
+.nav .div2 .logout{
+    font-size: 2.4em;
+    
+}
+main{
+    width: 100%;
+    padding: 20px;
+}
+table{
+    width: 100%;
+    
+    
+}
+table thead{
+    background-color: #334166;
+    height: 40px;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    height: 40px;
+    
+}
+td{
+    text-align: center;
+    padding: 5px;
+}
+tr:hover {
+    background-color: #ddd;
+}
+table thead tr:hover{
+    background-color: #334166;
+}
+ .td{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.td form button{
+    background-color: red;
+    border: 0px solid black;
+    padding: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
