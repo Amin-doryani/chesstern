@@ -66,12 +66,12 @@
                 <p>{{ str::limit(strip_tags($item->desc), 150) }}</p>
             </div>
             <div class="sec2div3">
-                <a href="#" class="roundes">Round : {{$item->round}}/{{$item->rounds}}</a>
-                <a href="#" class="players"><img src="assets/images/icons/group.svg" alt="group">{{$item->players_count}}/{{$item->maxplayers}}</a>
+                <a href="{{route('roundsid',$item->id)}}" class="roundes">Round : {{$item->round}}/{{$item->rounds}}</a>
+                <a href="{{route('playersintourna',$item->id)}}" class="players"><img src="assets/images/icons/group.svg" alt="group">{{$item->players_count}}/{{$item->maxplayers}}</a>
                 @if ($item->requests>0)
-                    <a href="#" class="request">requsets <span></span> ({{{$item->requests}}})</a>
+                    <a href="{{route('requests.show',$item)}}" class="request">requsets <span></span> ({{{$item->requests}}})</a>
                 @else
-                <a href="#" class="request">requsets</a>
+                <a href="{{route('requests.show',$item)}}" class="request">requsets</a>
                 @endif
                 
                 <a href="{{route('addplayer',['id'=>$item->id])}}" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>

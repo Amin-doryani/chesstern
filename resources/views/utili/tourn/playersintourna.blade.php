@@ -11,7 +11,7 @@
     @include('nav')
 
     <main>
-        <h1>Peaple that requested to join this Tournament: </h1>
+        <h1>Players In The Tournament: </h1>
         <br>
         <br>
         <table>
@@ -32,7 +32,7 @@
                             
                
                 <?php $a = 1;?>
-                @foreach ($data as $item)
+                @foreach ($players as $item)
                 
                 <tr>
                     <td>{{$a}}</td>
@@ -52,11 +52,8 @@
                     <td>{{$item->date}}</td>
                     <td>{{$item->created_at}}</td>
                     <td class="td">
-                        <a href="addtoplayers/{{$item->id}}/{{$item->idter}}" class="accept">
-                            <img src="{{asset('assets/images/icons/accept.svg')}}" alt="add"  >
-                            
-                        </a>
-                        <form action="{{route('requests.destroy',$item->id)}}" method="POST">
+                        
+                        <form action="{{route('player.destroy',$item->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button><img src="{{asset('assets/images/icons/delete2.svg')}}" alt="delete"  ></button>

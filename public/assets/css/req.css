@@ -105,4 +105,35 @@ table thead tr:hover{
     padding: 3px;
     border-radius: 3px;
     cursor: pointer;
+    transition: 0.5s;
 }
+.td form button:hover{
+    transform: scale(1.1);
+}
+
+.accept{
+    padding: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.5s;
+    background-color: #2d74f8;
+}
+
+.accept:hover{
+    transform: scale(1.1);
+}
+.playerimage{
+    width: 50px;
+    height: 50px;
+}
+
+ 
+
+
+
+ 
+
+
+
+
+

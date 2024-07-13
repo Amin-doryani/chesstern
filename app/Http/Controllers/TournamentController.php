@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tournament;
 use App\Models\Player;
+use App\Models\Round;
+use App\Models\Game;
+
+
 use App\Models\Requset;
 
 use Illuminate\Http\Request;
@@ -90,7 +94,7 @@ class TournamentController extends Controller
         $imagePath = $request->file('image')->storeAs("public/assets/images/tournimages", $imageName);
         $tournament->image = "storage/assets/images/tournimages/{$imageName}";
     } else {
-        $tournament->image = null;
+        $tournament->image = "storage/assets/images/tournimages/pawn.webp";
     }
 
     $tournament->min = $validatedData['min'];
@@ -99,8 +103,18 @@ class TournamentController extends Controller
     $tournament->idUtili = auth::id() ;
 
     $tournament->save();
+    $lastid = Tournament::where('idUtili', $id)->orderBy('id','desc')->first();
+    for ($i=1; $i <$validatedData['rounds'] + 1 ; $i++) { 
+       $newround = New Round();
+       $newround->round = $i;
+       $newround->status = "Not Started";
+       $newround->idter = (int)$lastid->id ;
+       $newround->save();
+      
+    }
+
     return redirect()->route("dashboard");
-    return("addtodb");
+   
 
     }
 
@@ -134,8 +148,9 @@ class TournamentController extends Controller
     public function destroy($id)
     {
         DB::table('players')->where('idter', $id)->delete();
-        $thetern = Tournament::findOrFail($id);
+        $thetern = Tournament::find($id);
         $imagePath = $thetern->image;
+        DB::table('rounds')->where('idter', $id)->delete();
         
         
         Storage::disk('local')->delete($imagePath);
@@ -145,5 +160,68 @@ class TournamentController extends Controller
         
         
         
+        
     }
+    public function getrounds($id){
+        $thetern = Tournament::findOrFail($id);
+        if ($thetern->round > 0) {
+            $rounds = Round::where('idter',$id)->get();
+            $players = Player::where("idter",$id)
+            ->orderby('pointes','desc')
+            ->orderby('tiebreack','desc')
+            ->orderby('perefo','desc')
+            ->orderby('elo','desc')
+            ->get();
+            $games = Game::where("idter",$id)
+            ->where('round',$thetern->round)
+            ->get();
+            return view('utili.tourn.rounds.rounds',['tour'=>$thetern,'rounds'=>$rounds,'players'=>$players,'games'=>$games]);
+
+        }else{
+            return ("<a href='/start/$id'>create tournament</a>");
+             
+             
+        }
+    }
+    public function starttour($id){
+        $thetern = Tournament::findOrFail($id);
+        $thetern->round= 1 ;
+        $thetern->save();
+        $players = Player::where("idter",$id)
+            ->orderby('pointes','desc')
+            ->orderby('tiebreack','desc')
+            ->orderby('perefo','desc')
+            ->orderby('elo','desc')
+            ->get();
+        $playersArray = [];
+        $playersArray = $players->toArray();
+        $half = ceil(count($playersArray) / 2); 
+        $firstHalf = array_slice($playersArray, 0, $half); 
+        $secondHalf = array_slice($playersArray, $half);
+        for ($i=0; $i < $half  ; $i++) { 
+            if (!isset($secondHalf[$i])) {
+                $idplayern = $firstHalf[$i]['id'] ;
+                $plyr = Player::findOrFail($idplayern);
+                if ($plyr->pointes === null) {
+                    $plyr->pointes = 0;
+                }
+                $plyr->pointes +=1;
+                $plyr->save();
+                
+            }else{
+                $game = New Game();
+                $game -> idp1 = $firstHalf[$i]['id'] ;
+                $game -> idp2 = $secondHalf[$i]['id'];
+                $game -> idter = $id;
+                $game -> round = 1;
+                $game->save();
+                
+            }
+        }
+
+        return  redirect()->route('roundsid',$id);
+       
+       
+    }
+    
 }

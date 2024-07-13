@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Player;
+use App\Models\Requset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +36,7 @@ class PlayerController extends Controller
             
             'name' => 'required|string',
             'username' => 'required|string',
-            'elo' => 'required|integer|min:100|max:3500',
+            'elo' => 'nullable|integer|min:100|max:3500',
             'date'=> 'nullable|date',
             'image' => 'nullable|image|max:10240',
         ]);
@@ -43,7 +44,12 @@ class PlayerController extends Controller
         $pl-> idter = $idter;
         $pl->name = $request->input('name');
         $pl->username = $request->input('username');
-        $pl->elo = $request->input('elo');
+        if ($request->input('elo')  == null) {
+            $pl->elo = 1000;
+        }else{
+            $pl->elo = $request->input('elo');
+        }
+        
         
         if ($request->filled('date')) {
             $pl->date = $request->input('date');
@@ -99,8 +105,14 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Player $player)
+    public function destroy($id)
     {
-        //
+        $theplayer = Player::find($id);
+        $theplayer->delete();
+         return redirect()->back();
+    }
+    public function showplayers($idter){
+        $players = Player::where('idter',$idter)->get();
+        return view('utili.tourn.playersintourna',['players'=>$players]);
     }
 }

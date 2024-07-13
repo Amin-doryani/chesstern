@@ -7,7 +7,7 @@
             
             <a href="#">Public Tournaments</a>
             @auth
-            <a href="{{route('logout')}}" class="logout"><img src="assets/images/icons/logouticon.svg" alt="logout" title="logout" ></a>
+            <a href="{{route('logout')}}" class="logout"><img src="{{asset('assets/images/icons/logouticon.svg')}}" alt="logout" title="logout" ></a>
             @endauth
         </div>
     </nav>

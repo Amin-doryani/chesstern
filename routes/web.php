@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\UtilisateurController;
 use App\http\Controllers\TournamentController;
 use App\http\Controllers\PlayerController;
+use App\http\Controllers\RequsetController;
+
 
 
 
@@ -35,5 +37,17 @@ Route::get('add-player/{id}', [PlayerController::class,'create'])->name('addplay
 Route::get("/req", function(){
     return view('utili.tourn.requests');
 });
+Route::get('players/{idter}',[PlayerController::class,'showplayers'])->name('playersintourna')->middleware('auth');
 
 
+Route::resource('requests', RequsetController::class);
+Route::get('requests/addtoplayers/{id}/{idter}',[RequsetController::class,'addtotour'])->name('addplayerfromreq')->middleware('auth');
+
+
+// Route::get('/rounds', function(){
+//     return view('utili.tourn.rounds.rounds');
+// })->middleware('auth');
+
+
+Route::get('/rounds/{id}',[TournamentController::class, 'getrounds'])->middleware('auth')->name('roundsid');
+Route::get('/start/{id}',[TournamentController::class, 'starttour'])->middleware('auth');
