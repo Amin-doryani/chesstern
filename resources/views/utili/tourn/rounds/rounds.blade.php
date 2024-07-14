@@ -6,84 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rounds</title>
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
-    <style>
-        article {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 300px;
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    <link rel="stylesheet" href="{{asset('assets/css/players.css')}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{asset('assets/js/rounds.js')}}"></script>
 
-        select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fff;
-            font-size: 16px;
-            box-sizing: border-box;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            cursor: pointer;
-        }
-
-        option {
-            padding: 10px;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-wrapper:before {
-            content: '\25BC';
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            pointer-events: none;
-        }
-
-        .select-wrapper:hover select {
-            background-color: #406689;
-            color: #fff;
-        }
-        
-        article a{
-            text-decoration: none;
-            color: black;
-            width: 50%;
-            text-align: center;
-            
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-        }
-        .art2{
-            width: 80%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0px 0px;
-            height: 80px;
-            align-items: center;
-        }
-        #selected{
-            background-color: #406689;
-            color: white;
-        }
-    </style>
+    
 </head>
 <body>
     @include('nav')
     <article >
-        <select name="round" id="round">
+        {{-- <select name="round" id="round">
             @foreach ($rounds as $item)
             <option value="{{$item->round}}">Round {{$item->round}}
                 @if ($item->round > $tour->round)
@@ -91,15 +23,66 @@
                 @endif
             </option>
             @endforeach
-        </select>
+        </select> --}}
     </article>
     <article class="art2">
-        <a href="#" id="selected">Results</a>
-        <a href="#" >Matches</a>
+        <a  class="selected" id="link2">Results</a>
+        <a   id="link1">Games</a>
         
     </article>
-    <article>
-       
+    <article class="playerart" id="players">
+        <?php $a = 1; ?>
+        @foreach ($players as $item)
+            
+        
+       <div class="playersdiv">
+        <div class="divdiv">
+        <span class="res">#{{$a}}</span>
+        @if ($item->image == null)
+            <img class="playerimg" src="{{asset('assets/images/playerimage/playerimg.png')}}"  alt="player">
+        @else
+            <img class="playerimg" src="{{asset($item->image)}}"  alt="player">
+        @endif
+        <h3>{{$item->name}} ({{$item->elo}})</h3>
+        </div>
+        <div class="spandiv"><span class="po">{{$item->pointes}}/{{$tour->round}}</span></div>
+        
+       </div>
+       <?php $a+=1; ?>
+       @endforeach
+    </article>
+    <article id="games">
+        <div class="select">
+            <h1>Round {{$tour->round}}</h1>
+            <select name="round" id="round">
+                @foreach ($rounds as $item)
+                <option value="{{$item->round}}">Round {{$item->round}}
+                    @if ($item->round > $tour->round)
+                        {{$item->status}}
+                    @endif
+                </option>
+                @endforeach
+            </select>
+        </div>
+        <?php $b=1?>
+        @foreach ($games as $item)
+        <div class="game">
+
+            <h1> {{$b}}</h1>
+            <?php $b+=1 ?>
+            <div class="gamediv1">
+                <h4>{{$item->Player2->name}}({{$item->Player2->elo}})</h4>
+            </div>
+            <div class="gamediv2">
+                <img src="{{asset('assets/images/backgrounds/chessboard.png')}}" alt="board">
+            </div>
+            <div class="gamediv3"><h4>{{$item->Player1->name}}({{$item->Player1->elo}})</h4></div>
+        </div>
+        @endforeach
+        
+        
+        
+        
     </article>
 </body>
 </html>

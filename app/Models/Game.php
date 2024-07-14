@@ -20,9 +20,9 @@ class Game extends Model
         return $this ->belongsTo(Tournament::class);
     }
     public function Player1(){
-        return $this ->belongsTo(Player1::class,'idp1');
+        return $this ->belongsTo(Player::class,'idp1');
     }
     public function Player2(){
-        return $this ->belongsTo(Player1::class,'idp2');
+        return $this ->belongsTo(Player::class,'idp2');
     }
 }

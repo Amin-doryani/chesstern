@@ -174,6 +174,7 @@ class TournamentController extends Controller
             ->get();
             $games = Game::where("idter",$id)
             ->where('round',$thetern->round)
+            ->with(['Player1','Player2'])
             ->get();
             return view('utili.tourn.rounds.rounds',['tour'=>$thetern,'rounds'=>$rounds,'players'=>$players,'games'=>$games]);
 

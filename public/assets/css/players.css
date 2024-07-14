@@ -1,0 +1,154 @@
+article {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+option {
+    padding: 10px;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper:before {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.select-wrapper:hover select {
+    background-color: #406689;
+    color: #fff;
+}
+
+article a{
+    text-decoration: none;
+    color: black;
+    width: 50%;
+    text-align: center;
+    
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.art2{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px;
+    height: 80px;
+    align-items: center;
+}
+.art2 a{
+    cursor: pointer;
+}
+.selected{
+    background-color: #406689;
+    color: white;
+}
+article div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    /* border: 1px solid black; */
+    
+    
+ }
+ article div .spandiv{
+    display: flex;
+   justify-content: right;
+    align-items: center;
+    height: 50%;
+    
+    width: 100px;
+    height: 100%;
+    
+    
+ }
+ .playerart{
+    min-width: max-content;
+    justify-content: space-between;
+    
+ }
+ article div .playerimg{
+    width: 40px;
+    height: 40px;
+ }
+ .playersdiv{
+    border-bottom: 1px solid rgb(131, 128, 128);
+    padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+ }
+ .divdiv{
+    display: flex;
+    gap: 10px;
+    height: 100%;
+    
+ }
+ .game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+    
+ }
+ 
+ #games{
+    width: max-content;
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width:90vw;
+    
+ }
+ #games .game .gamediv2 img{
+   width: 350px;
+   height: 350px;
+ }
+ .game div{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    
+ }
+ #games .select{
+    width: 100%;
+ }
+ #games .select select{
+    width: 150px;
+ }

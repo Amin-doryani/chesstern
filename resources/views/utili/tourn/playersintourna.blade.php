@@ -40,9 +40,9 @@
                     
                     <td>
                         @if ($item->image == null)
-                            <img class="playerimage" src="{{asset('assets/images/playerimage/playerimg.png')}}"  alt="player2">
+                            <img class="playerimage" src="{{asset('assets/images/playerimage/playerimg.png')}}"  alt="player" class="playerimg">
                         @else
-                        <img class="playerimage" src="{{asset($item->image)}}"  alt="player">
+                        <img class="playerimage" src="{{asset($item->image)}}"  alt="player" class="playerimg">
                         @endif
                         {{-- <img class="playerimage" src="{{asset('assets/images/playerimage/hakimi.jpg')}}"  alt=""> --}}
                     </td>
