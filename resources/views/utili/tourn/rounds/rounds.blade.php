@@ -7,7 +7,7 @@
     <title>Rounds</title>
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/players.css')}}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{asset('assets/js/jquery/jquery.js')}}"></script>
     <script src="{{asset('assets/js/rounds.js')}}"></script>
 
     
@@ -45,7 +45,7 @@
         @endif
         <h3>{{$item->name}} ({{$item->elo}})</h3>
         </div>
-        <div class="spandiv"><span class="po">{{$item->pointes}}/{{$tour->round}}</span></div>
+        <div class="spandiv"><span class="po">{{$item->pointes}}/{{$tour->round}}  tiebreack {{$item->tiebreack}} </span></div>
         
        </div>
        <?php $a+=1; ?>
@@ -77,12 +77,18 @@
                 <img src="{{asset('assets/images/backgrounds/chessboard.png')}}" alt="board">
             </div>
             <div class="gamediv3"><h4>{{$item->Player1->name}}({{$item->Player1->elo}})</h4></div>
+            <div>
+                <a href="/setgameres/{{$item->id}}/{{$item->idter}}" class="setgameres">Set game result</a>
+            </div>
         </div>
         @endforeach
         
         
         
         
+    </article>
+    <article>
+         <a href="{{Route('newround',$tour->id)}}" class="newround">Start New Round</a>
     </article>
 </body>
 </html>

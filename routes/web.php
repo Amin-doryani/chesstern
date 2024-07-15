@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\UtilisateurController;
 use App\http\Controllers\TournamentController;
 use App\http\Controllers\PlayerController;
+use App\http\Controllers\GameController;
+
 use App\http\Controllers\RequsetController;
 
 
@@ -50,4 +52,15 @@ Route::get('requests/addtoplayers/{id}/{idter}',[RequsetController::class,'addto
 
 
 Route::get('/rounds/{id}',[TournamentController::class, 'getrounds'])->middleware('auth')->name('roundsid');
+Route::get('/startnewround/{idter}',[TournamentController::class, 'newround'])->middleware('auth')->name('newround');
+
 Route::get('/start/{id}',[TournamentController::class, 'starttour'])->middleware('auth');
+
+
+
+Route::get('/setgameres',function(){
+    return view("utili.tourn.rounds.gameres");
+});
+Route::get('/setgameres/{id}/{idter}',[GameController::class,'edit'])->middleware("auth")->name('setgameres');
+Route::post('/update-gameres/{id}',[GameController::class,'update'])->name('updategameres')->middleware('auth');
+Route::get('/tiebreack/{idter}',[GameController::class,'tiebreack'])->name('tiebreack')->middleware('auth');

@@ -6,6 +6,8 @@ use App\Models\Tournament;
 use App\Models\Player;
 use App\Models\Round;
 use App\Models\Game;
+use App\Models\Bye;
+
 
 
 use App\Models\Requset;
@@ -176,6 +178,7 @@ class TournamentController extends Controller
             ->where('round',$thetern->round)
             ->with(['Player1','Player2'])
             ->get();
+            
             return view('utili.tourn.rounds.rounds',['tour'=>$thetern,'rounds'=>$rounds,'players'=>$players,'games'=>$games]);
 
         }else{
@@ -207,7 +210,14 @@ class TournamentController extends Controller
                     $plyr->pointes = 0;
                 }
                 $plyr->pointes +=1;
+                $thebye = New Bye();
+                $thebye->idp = $plyr->id;
+                $thebye->idter = $id;
+                $thebye->idround = 1; 
+                $thebye->save();
                 $plyr->save();
+                
+
                 
             }else{
                 $game = New Game();
@@ -216,6 +226,7 @@ class TournamentController extends Controller
                 $game -> idter = $id;
                 $game -> round = 1;
                 $game->save();
+
                 
             }
         }
@@ -223,6 +234,76 @@ class TournamentController extends Controller
         return  redirect()->route('roundsid',$id);
        
        
+    }
+    public function newround($idter){
+        $thetern = Tournament::findOrFail($idter);
+        if ($thetern->rounds>$thetern->round) {
+            $games=Game::where('idter',$idter)
+            ->where('round',$thetern->round)
+            ->get();
+            $done = TRUE;
+            foreach ($games as $game) {
+                if ($game->res === null) {
+                    $done = FALSE;
+                }
+            }
+            if ($done ==true) {
+                $thetern->round+= 1 ;
+                $thetern->save();
+                $players = Player::where("idter",$idter)
+                ->orderby('pointes','desc')
+                ->orderby('tiebreack','desc')
+                ->orderby('perefo','desc')
+                ->orderby('elo','desc')
+                ->get();
+                $totalPlayers = $players->count();
+
+                if ($totalPlayers % 2 !== 0) {
+    
+                    $lastPlayer = $players->pop(); 
+                    $thebye = New Bye();
+                    $thetern = Tournament::findOrFail($idter);
+                    $thebye->idp = $lastPlayer->id;
+                    $thebye->idter = $idter;
+                    $thebye->idround = $thetern->round; 
+                    $thebye->save();
+                    $lastPlayer->pointes+=1;
+                    $lastPlayer->save();
+
+                    $half = $players->count() / 2;
+                    $firstHalf = $players->slice(0, $half);
+                    // $secondHalf = $players->slice($half);
+                    $secondHalf = array_slice($players->toArray(),$half);
+                } else {
+    
+                    $half = $totalPlayers / 2;
+                    $firstHalf = $players->slice(0, $half);
+                    // $secondHalf = $players->slice($half);
+                    $secondHalf = array_slice($players->toArray(),$half);
+                }
+                
+                
+                for ($i=0; $i < $half  ; $i++){
+
+                    $game = New Game();
+                    $game -> idp1 = $firstHalf[$i]['id'] ;
+                    $game -> idp2 = $secondHalf[$i]['id'];
+                    $game -> idter = $idter;
+                    $thetern = Tournament::findOrFail($idter);
+                    $game -> round = $thetern->round;
+                    $game->save();
+
+                    
+                    
+                }
+                return redirect()->route('roundsid',$idter);
+
+            }else {
+                return redirect()->back();
+            }
+        }else{
+            return redirect()->back();
+        }
     }
     
 }
