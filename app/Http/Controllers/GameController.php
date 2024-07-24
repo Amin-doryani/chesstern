@@ -210,4 +210,30 @@ class GameController extends Controller
         }
         return  redirect()->route('roundsid',$idter);
     }
+    public function getaround(Request $request){
+
+        // $idter = $selectedOption = $request->input('idter');;
+        // $round = $selectedOption = $request->input('selectedOption');
+        // $tour = Tournament::findOrFail($idter);
+        // $rounds = Round::where('idter',$id)->get();
+        // $players = Player::where("idter",$id)
+        // ->orderby('pointes','desc')
+        // ->orderby('tiebreack','desc')
+        // ->orderby('perefo','desc')
+        // ->orderby('elo','desc')
+        // ->get();
+        // $games = Game::where("idter",$id)
+        // ->where('round',$round)
+        // ->with(['Player1','Player2'])
+        // ->get();
+        // $html = `
+        // <p>HHHHH</p>
+        
+        
+        // `;
+        // return response()->json($html);
+        return("hveji");
+        
+
+    }
 }

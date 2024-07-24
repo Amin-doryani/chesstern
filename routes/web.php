@@ -52,7 +52,10 @@ Route::get('requests/addtoplayers/{id}/{idter}',[RequsetController::class,'addto
 
 
 Route::get('/rounds/{id}',[TournamentController::class, 'getrounds'])->middleware('auth')->name('roundsid');
-Route::get('/startnewround/{idter}',[TournamentController::class, 'newround'])->middleware('auth')->name('newround');
+Route::get('/startnewround/{idter}',[TournamentController::class, 'startround'])->middleware('auth')->name('newround');
+Route::get('/getmaxpo/{idter}',[TournamentController::class, 'getmaxpo']);
+Route::get('/array',[TournamentController::class, 'arrays']);
+
 
 Route::get('/start/{id}',[TournamentController::class, 'starttour'])->middleware('auth');
 
@@ -64,3 +67,5 @@ Route::get('/setgameres',function(){
 Route::get('/setgameres/{id}/{idter}',[GameController::class,'edit'])->middleware("auth")->name('setgameres');
 Route::post('/update-gameres/{id}',[GameController::class,'update'])->name('updategameres')->middleware('auth');
 Route::get('/tiebreack/{idter}',[GameController::class,'tiebreack'])->name('tiebreack')->middleware('auth');
+Route::post("/getgames/idter/value",[GameController::class,'getround'])->name("getroundgames");
+Route::get("/public",[TournamentController::class,'allpublictourn'])->name('allpublictourn');

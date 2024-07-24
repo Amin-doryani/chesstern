@@ -42,6 +42,17 @@ class TournamentController extends Controller
 
         
     }
+    public function allpublictourn(){
+        $tourn1 = Tournament::where('round',0)
+        ->where("status",'public')
+        ->with('players')
+        ->withCount('players')
+        ->get();
+        // $tourn2 = Tournament::where('round' > 0)
+        // ->where("status",'public')
+        // ->get();
+        return view("utili.tourn.publictourn",['tourn1'=>$tourn1]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -125,7 +136,7 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        //
+        
     }
 
     /**
@@ -149,10 +160,15 @@ class TournamentController extends Controller
      */
     public function destroy($id)
     {
+        DB::table('games')->where('idter', $id)->delete();
         DB::table('players')->where('idter', $id)->delete();
         $thetern = Tournament::find($id);
         $imagePath = $thetern->image;
         DB::table('rounds')->where('idter', $id)->delete();
+        DB::table('byes')->where('idter', $id)->delete();
+        
+
+
         
         
         Storage::disk('local')->delete($imagePath);
@@ -304,6 +320,171 @@ class TournamentController extends Controller
         }else{
             return redirect()->back();
         }
+    }
+    public function getmaxpo($idter){
+        $maxpo = Player::where("idter",$idter)
+                ->max('pointes');
+        return($maxpo);
+                
+    }
+    public function startround($idter){
+        $thetern = Tournament::findOrFail($idter);
+        if ($thetern->rounds>$thetern->round) {
+            $games=Game::where('idter',$idter)
+            ->where('round',$thetern->round)
+            ->get();
+            $done = TRUE;
+            foreach ($games as $game) {
+                if ($game->res === null) {
+                    $done = FALSE;
+                }
+            }
+            if ($done ==true) {
+                $thetern->round+= 1 ;
+                $thetern->save();
+                $players = Player::where("idter",$idter)
+                ->orderby('pointes','desc')
+                ->orderby('tiebreack','desc')
+                ->orderby('perefo','desc')
+                ->orderby('elo','desc')
+                ->get();
+                $totalPlayers = $players->count();
+
+                if ($totalPlayers % 2 !== 0) {
+    
+                    $lastPlayer = $players->pop(); 
+                    $thebye = New Bye();
+                    $thetern = Tournament::findOrFail($idter);
+                    $thebye->idp = $lastPlayer->id;
+                    $thebye->idter = $idter;
+                    $thebye->idround = $thetern->round; 
+                    $thebye->save();
+                    $lastPlayer->pointes+=1;
+                    $lastPlayer->save();
+
+                    $maxpo = Player::where("idter",$idter)
+                    ->max('pointes');
+                    $playerslist=[];
+                    for ($maxpo; $maxpo >-0.5; $maxpo-=0.5) { 
+                        $playerwithpo=[];
+                        foreach ($players as $player) {
+                           if ($player->pointes==$maxpo) {
+                            $playerwithpo[]=$player;
+                            
+                           }
+                        }
+
+                        if (isset($playerwithpo[0])) {
+                            $halved = array_chunk($playerwithpo,ceil(count($playerwithpo)/2));
+                        $half1count = count($halved[0]);
+                        for ($i=0; $i <$half1count ; $i++) { 
+                            $playerslist[]=$halved[0][$i];
+                            if (isset($halved[1][$i])) {
+                                $playerslist[]=$halved[1][$i];
+
+                            }
+                        }
+                        }
+                        
+                    }
+                    $playerlistcount = count($playerslist);
+                    for ($i=0; $i <$playerlistcount ; $i+=2) { 
+                        $thetern = Tournament::findOrFail($idter);
+                        if ($thetern->round % 2 !== 0) {
+                            $game = New Game();
+                            $game -> idp1 = $playerslist[$i]['id'] ;
+                            $game -> idp2 = $playerslist[$i+1]['id'];
+                            $game -> idter = $idter;
+                            
+                            $game -> round = $thetern->round;
+                            $game->save();
+                        }else{
+                            $game = New Game();
+                            $game -> idp1 = $playerslist[$i+1]['id'] ;
+                            $game -> idp2 = $playerslist[$i]['id'];
+                            $game -> idter = $idter;
+                            
+                            $game -> round = $thetern->round;
+                            $game->save();
+                        }
+                        
+                    }
+
+
+                   
+                } else {
+                    $maxpo = Player::where("idter",$idter)
+                    ->max('pointes');
+                    $playerslist=[];
+                    for ($maxpo; $maxpo <-1; $maxpo--) { 
+                        $playerwithpo=[];
+                        foreach ($players as $player) {
+                           if ($player->pointes==$maxpo) {
+                            $playerwithpo[]=$player;
+                            
+                           }
+                        }
+                        if (isset($playerwithpo[0])) {
+                            $halved = array_chunk($playerwithpo,ceil(count($playerwithpo)/2));
+                        $half1count = count($halved[0]);
+                        for ($i=0; $i <$half1count ; $i++) { 
+                            $playerslist[]=$halved[0][$i];
+                            if (isset($halved[$i])) {
+                                $playerslist[]=$halved[1][$i];
+                            }
+                        }
+                        }
+                        
+                        
+                    }
+                    $playerlistcount = count($playerslist);
+                    for ($i=0; $i <$playerlistcount ; $i+=2) { 
+                        $thetern = Tournament::findOrFail($idter);
+                        if ($thetern->round % 2 !== 0) {
+                            $game = New Game();
+                            $game -> idp1 = $playerslist[$i]['id'] ;
+                            $game -> idp2 = $playerslist[$i+1]['id'];
+                            $game -> idter = $idter;
+                            
+                            $game -> round = $thetern->round;
+                            $game->save();
+                        }else{
+                            $game = New Game();
+                            $game -> idp1 = $playerslist[$i+1]['id'] ;
+                            $game -> idp2 = $playerslist[$i]['id'];
+                            $game -> idter = $idter;
+                            
+                            $game -> round = $thetern->round;
+                            $game->save();
+                        }
+                    }
+                   
+                }
+                
+                
+               
+                return redirect()->route('roundsid',$idter);
+
+            }else {
+                return redirect()->back();
+            }
+        }else{
+            return redirect()->back();
+        }
+    }
+    public function arrays(){
+        $a = 0;
+        if ($a % 2 ==0) {
+            echo "yes";
+        }else{
+            echo "faredi";
+        }
+        
+
+
+        
+
+
     }
     
 }

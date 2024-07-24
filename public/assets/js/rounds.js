@@ -24,3 +24,27 @@ $(document).ready(function(){
         $("#players").show();
     });
 });
+
+// $(document).ready(function() {
+//     $('#mySelect').change(function() {
+//         var value = $(this).val();
+
+//         $.ajax({
+//             var url = '{{ url("myroute") }}' + '/' + idter + '/' + value ;
+//             method: 'get',
+//             data: {
+//                 value: selectedValue,
+//                 _token: $('meta[name="csrf-token"]').attr('content') // Include CSRF token for security
+//             },
+//             success: function(response) {
+//                 console.log('Value sent successfully:', response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error('Error sending value:', error);
+//             }
+//         });
+//     });
+// });
+
+
+

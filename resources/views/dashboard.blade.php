@@ -12,6 +12,14 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <div id="overlay"></div>
+
+
+
+    
+
+
+
     @include('nav')
     <main class="main">
         
@@ -37,23 +45,7 @@
     </section>
     <section class="sec2">
         
-        <article>
-            <div class="sec2div1">
-                <img src="assets/images/tournimages/pawn.webp" alt="tourn">
-            </div>
-            <div class="sec2div2">
-                <h2>Al hoceima 2022/2023</h2>
-                <p>Hi there, if you face any problem contact us, confirm your order and if you can put a good comment it will be grateful thank you</p>
-            </div>
-            <div class="sec2div3">
-                <a href="#" class="roundes">5/7</a>
-                <a href="#" class="players"><img src="assets/images/icons/group.svg" alt="group">95/100</a>
-                <a href="#" class="request">requsets <span></span></a>
-                <a href="#" class="add"><img src="assets/images/icons/add2.svg" alt="add">add</a>
-                <a href="#" class="delete"><img src="assets/images/icons/delete.svg" alt="delete">delete</a>
-                <a href="#" class="link"><img src="assets/images/icons/link.svg" alt="link" title="link"></a>
-            </div>
-        </article>
+        
 
 
         @foreach ($tourn as $item)
